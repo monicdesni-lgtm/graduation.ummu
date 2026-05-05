@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Memories 📖✨</title>
+    <style>
+        :root {
+            --soft-pink: #fce4ec;
+            --sky-blue: #e3f2fd;
+        }
+
+        body {
+            margin: 0; padding: 0; min-height: 100vh;
+            background: linear-gradient(-45deg, #fce4ec, #e3f2fd, #f8bbd0, #bbdefb);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Times New Roman', Times, serif;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            overflow: hidden; position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .decor-item { position: absolute; pointer-events: none; z-index: 1; animation: float 6s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        /* SLIDER SETTINGS */
+        .slider-view {
+            width: 320px; 
+            height: 480px;
+            display: flex;
+            overflow: visible;
+            z-index: 10;
+            position: relative;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            align-items: center;
+        }
+
+        .card {
+            min-width: 320px;
+            height: 450px;
+            background: white;
+            border: 10px solid white;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.5s ease;
+            opacity: 0.3;
+            transform: scale(0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card.active {
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .card:nth-child(odd) { background-color: var(--soft-pink); }
+        .card:nth-child(even) { background-color: var(--sky-blue); }
+
+        .card img { width: 100%; height: 80%; object-fit: cover; border-radius: 5px 5px 0 0; }
+        .card-text { padding: 15px; text-align: center; font-weight: bold; font-size: 16px; color: #333; }
+
+        .nav-ui { margin-top: 35px; z-index: 100; text-align: center; }
+        .btn-nav {
+            background: white; border: none; padding: 12px 30px;
+            border-radius: 50px; cursor: pointer; font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin: 0 10px;
+            transition: 0.3s;
+        }
+        .btn-nav:hover { transform: scale(1.1); background: #eee; }
+
+        /* MODE AUTO JALAN */
+        .auto-mode-active .slider-wrapper { transition: none !important; gap: 20px; }
+        .auto-mode-active .card { opacity: 1 !important; transform: scale(0.9) !important; min-width: 260px !important; }
+
+        /* MUSIC CONTROL */
+        .music-btn {
+            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+            background: white; border: none; width: 45px; height: 45px;
+            border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 20px; display: flex; align-items: center; justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- AUDIO ELEMENT (Ganti kenangan.mp3 dengan nama file lagumu) -->
+    <audio id="mySong" loop>
+        <source src="ramai sepi bersama.mp3" type="audio/mp3">
+    </audio>
+
+    <button class="music-btn" onclick="toggleMusic()" id="musicBtn">🎵</button>
+
+    <button onclick="location.href='menu.html'" style="position:fixed; top:20px; left:20px; z-index:100; cursor:pointer; background: white; border:none; padding:8px 15px; border-radius:20px; font-weight:bold; box-shadow:0 2px 5px rgba(0,0,0,0.1);">⬅️ Back</button>
+
+    <div id="status" style="font-weight: bold; margin-bottom: 15px; color: #000000;">Memory 1 / 20</div>
+
+    <div class="slider-view">
+        <div class="slider-wrapper" id="wrapper">
+            <div class="card active"><img src="baju muslim lagi.jpg"><div class="card-text">It feels like only yesterday we first walked through these halls.</div></div>
+            <div class="card"><img src="baju muslim lapangan.jpg"><div class="card-text">But now, the clock is ticking towards our final goodbye.</div></div>
+            <div class="card"><img src="baju pramuka taman.jpg"><div class="card-text">To my friends, thank you for being part of my journey.</div></div>
+            <div class="card"><img src="citumang3.jpg"><div class="card-text">Every laugh we shared is a treasure I'll keep forever.</div></div>
+            <div class="card"><img src="gacoan 4.jpg"><div class="card-text">And every challenge we faced only made our bond stronger.</div></div>
+            <div class="card"><img src="gema 2025 2.jpg"><div class="card-text">I want to say thank you for the lessons and the memories.</div></div>
+            <div class="card"><img src="IMG-20250124-WA0037.jpg"><div class="card-text">Thank you for the support when things got tough.</div></div>
+            <div class="card"><img src="jalan sehat.jpg"><div class="card-text">I sincerely apologize for any mistakes I've made.</div></div>
+            <div class="card"><img src="IMG-20250124-WA0039.jpg"><div class="card-text">For the words that might have hurt or actions that were wrong.</div></div>
+            <div class="card"><img src="malih 17 1.jpg"><div class="card-text">Please forgive me for my shortcomings during our time together.</div></div>
+            <div class="card"><img src="ultah difa 2024.jpg"><div class="card-text">I hope we can leave this place with only peace in our hearts.</div></div>
+            <div class="card"><img src="p5 batik.jpg"><div class="card-text">High school might end, but our story doesn't have to.</div></div>
+            <div class="card"><img src="pramuka lapangan2.jpg"><div class="card-text">We are moving on to chase different dreams in different places.</div></div>
+            <div class="card"><img src="makan makan mas bim2.jpeg"><div class="card-text">But a piece of my heart will always stay here with you.</div></div>
+            <div class="card"><img src="muharoku1.jpg"><div class="card-text">Distance may grow, but memories will never fade away.</div></div>
+            <div class="card"><img src="naik angkot1.jpg"><div class="card-text">I am so proud to see how far we’ve all come.</div></div>
+            <div class="card"><img src="otw citumang.jpg"><div class="card-text">Success is waiting for you out there, I just know it.</div></div>
+            <div class="card"><img src="gema 2025 7.jpg"><div class="card-text">Don't be a stranger, even when life gets busy.</div></div>
+            <div class="card"><img src="malih 17 2.jpg"><div class="card-text">Thank you for the most beautiful years of my life.</div></div>
+            <div class="card"><img src="ultah malih 2024 1.jpg"><div class="card-text">Until we meet again, Happy Graduation!</div></div>
+        </div>
+    </div>
+
+    <div class="nav-ui" id="navUI">
+        <button class="btn-nav" id="prevBtn" onclick="move(-1)">⬅️ Prev</button>
+        <button class="btn-nav" id="nextBtn" onclick="move(1)">Next ➡️</button>
+        <button class="btn-nav" id="finishBtn" onclick="location.href='penutup.html'" style="display: none; background: #ff4081; color: white;">See Last Surprise! ✨</button>
+    </div>
+
+    <script>
+        let curr = 0;
+        const wrapper = document.getElementById('wrapper');
+        const status = document.getElementById('status');
+        const cards = document.querySelectorAll('.card');
+        const song = document.getElementById('mySong');
+        let musicStarted = false;
+
+        function toggleMusic() {
+            if (song.paused) {
+                song.play();
+                document.getElementById('musicBtn').innerText = "🎵";
+            } else {
+                song.pause();
+                document.getElementById('musicBtn').innerText = "🔇";
+            }
+        }
+
+        function move(dir) {
+            // Putar musik otomatis saat pertama kali klik navigasi
+            if (!musicStarted) {
+                song.play();
+                musicStarted = true;
+            }
+
+            curr += dir;
+            if (curr < 0) curr = 0;
+            
+            if (curr >= 20) {
+                startAuto();
+                return;
+            }
+
+            cards.forEach(c => c.classList.remove('active'));
+            cards[curr].classList.add('active');
+
+            wrapper.style.transform = `translateX(${-curr * 320}px)`;
+            status.innerText = `Memory ${curr + 1} / 20`;
+        }
+
+        function startAuto() {
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('finishBtn').style.display = 'inline-block';
+
+            status.innerText = "See u on top... ❤️";
+            document.body.classList.add('auto-mode-active');
+            
+            wrapper.innerHTML += wrapper.innerHTML;
+            
+            let pos = -curr * 320;
+            function run() {
+                pos -= 2; 
+                wrapper.style.transform = `translateX(${pos}px)`;
+                if (Math.abs(pos) >= wrapper.scrollWidth / 2) {
+                    pos = 0;
+                }
+                requestAnimationFrame(run);
+            }
+            run();
+        }
+
+        function addDecor() {
+            const icons = ['✨', '🌸', '⭐', '🌺', '💕'];
+            for (let i = 0; i < 35; i++) {
+                let div = document.createElement('div');
+                div.className = 'decor-item';
+                div.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+                div.style.left = Math.random() * 100 + 'vw';
+                div.style.top = Math.random() * 100 + 'vh';
+                div.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                div.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(div);
+            }
+        }
+        addDecor();
+    </script>
+</body>
+</html>

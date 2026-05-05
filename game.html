@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Catch the Flowers! 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fce4ec;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom, #fce4ec, #f8bbd0);
+        }
+
+        .score-board {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            color: #d81b60;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.2);
+            border: 2px solid #f48fb1;
+        }
+
+        /* KERANJANG ROTAN COKELAT */
+        #basket {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            width: 120px;
+            height: 90px;
+            background-image: url('https://emojigraph.org/media/google/basket_1f9fa.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transform: translateX(-50%);
+            cursor: grab;
+            z-index: 10;
+        }
+
+        .flower {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            font-size: 35px;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* MODAL KEMENANGAN */
+        #win-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 35px;
+            border-radius: 30px;
+            text-align: center;
+            display: none;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            z-index: 200;
+            width: 85%;
+            max-width: 350px;
+            animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popUp {
+            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        /* CONTAINER UNTUK FOTO BUKET KAMU */
+        .bouquet-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+            transform: rotate(-5deg); 
+        }
+
+        .bouquet-img {
+            width: 220px; /* Ukuran gambar buket */
+            height: auto;
+            border-radius: 15px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+            border: 5px solid #fff; /* Memberi bingkai putih tipis agar cantik */
+        }
+
+        .for-you {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #d81b60;
+            margin: 10px 0 0 0;
+        }
+
+        .message-text {
+            color: #666; 
+            font-weight: 600; 
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
+        .btn-restart {
+            margin-top: 25px;
+            padding: 12px 35px;
+            border-radius: 50px;
+            border: none;
+            background: #f06292;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(240, 98, 146, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <div class="score-board">Bunga untuk Ummu: <span id="score">0</span> / 15</div>
+        <div id="basket"></div>
+
+        <div id="win-message">
+            <div class="bouquet-wrapper">
+                <!-- DISINI TEMPAT GAMBARNYA -->
+                <!-- Kamu tinggal ganti 'buket_ummu.png' dengan nama file fotomu -->
+                <img src="https://i.pinimg.com/736x/7f/54/44/7f5444b51921bba590246b4a2d4de9b8.jpg" alt="Buket Cantik Untuk Ummu" class="bouquet-img">
+            </div>
+            <h1 class="for-you">For You</h1>
+            <p class="message-text">Semoga kamu suka bunganya ya ✨</p>
+            <button class="btn-restart" onclick="window.location.href='menu.html'">Next ➡️</button>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('game-container');
+        const basket = document.getElementById('basket');
+        const scoreElement = document.getElementById('score');
+        const winMessage = document.getElementById('win-message');
+
+        let score = 0;
+        let gameActive = true;
+        const targetScore = 15; 
+        const flowerIcons = ['🌸', '🌹', '🌷', '🌻', '🌺', '🌼'];
+
+        const moveBasket = (e) => {
+            if (!gameActive) return;
+            let x = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+            let basketWidth = basket.offsetWidth;
+            let newPos = x - basketWidth / 2;
+            
+            if (newPos < 0) newPos = 0;
+            if (newPos > window.innerWidth - basketWidth) newPos = window.innerWidth - basketWidth;
+            
+            basket.style.left = newPos + 'px';
+        };
+
+        window.addEventListener('mousemove', moveBasket);
+        window.addEventListener('touchmove', moveBasket);
+
+        function createFlower() {
+            if (!gameActive) return;
+
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.innerHTML = flowerIcons[Math.floor(Math.random() * flowerIcons.length)];
+            flower.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+            flower.style.top = '-60px';
+            container.appendChild(flower);
+
+            let posY = -60;
+            let fallSpeed = 3 + Math.random() * 3;
+
+            function fall() {
+                if (!gameActive) { flower.remove(); return; }
+                
+                posY += fallSpeed;
+                flower.style.top = posY + 'px';
+
+                const bRect = basket.getBoundingClientRect();
+                const fRect = flower.getBoundingClientRect();
+
+                if (
+                    fRect.bottom >= bRect.top + 30 && 
+                    fRect.right >= bRect.left + 10 && 
+                    fRect.left <= bRect.right - 10 &&
+                    fRect.top <= bRect.bottom
+                ) {
+                    score++;
+                    scoreElement.innerText = score;
+                    flower.remove();
+                    
+                    basket.style.transform = 'translateX(-50%) scale(1.1)';
+                    setTimeout(() => {
+                        if(gameActive) basket.style.transform = 'translateX(-50%) scale(1)';
+                    }, 100);
+                    
+                    if (score >= targetScore) {
+                        gameActive = false;
+                        winMessage.style.display = 'block';
+                        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                    }
+                } else if (posY > window.innerHeight) {
+                    flower.remove();
+                } else {
+                    requestAnimationFrame(fall);
+                }
+            }
+            fall();
+        }
+
+        setInterval(createFlower, 600); 
+    </script>
+</body>
+</html>

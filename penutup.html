@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations Ummu! 🎓✨</title>
+    <style>
+        :root {
+            --pink-light: #fce4ec;
+            --pink-medium: #f8bbd0;
+            --pink-dark: #f06292;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            /* Background Gradasi Pink sesuai request */
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+            overflow: hidden;
+            color: #d81b60; /* Warna teks pink tua supaya kontras */
+            font-family: 'Times New Roman', Times, serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .content {
+            text-align: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            animation: bounceIn 1.5s ease;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+        }
+
+        p {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* CSS untuk Kembang Api */
+        .firework {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            animation: explode 1.2s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(35); opacity: 0; }
+        }
+
+        .btn-back {
+            margin-top: 30px;
+            padding: 10px 25px;
+            background: white;
+            color: #d81b60;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <h1>See U on Top, Ummu! 🎓✨</h1>
+        <p>I'm so proud of you, today and always.</p>
+        <a href="menu.html" class="btn-back">Back to Menu 🏠</a>
+    </div>
+
+    <script>
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            
+            // Posisi acak di seluruh layar
+            firework.style.left = Math.random() * 100 + 'vw';
+            firework.style.top = Math.random() * 100 + 'vh';
+            
+            // Warna-warni kembang api (campuran warna cerah)
+            const colors = [
+                '#ffffff', // Putih
+                '#ffeb3b', // Kuning
+                '#00e676', // Hijau
+                '#40c4ff', // Biru Muda
+                '#ff5252', // Merah
+                '#e040fb'  // Ungu
+            ];
+            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Tambahkan efek kilau/glow
+            firework.style.boxShadow = `0 0 10px ${firework.style.backgroundColor}`;
+            
+            document.body.appendChild(firework);
+            
+            // Hapus elemen setelah animasi selesai agar tidak berat
+            setTimeout(() => {
+                firework.remove();
+            }, 1200);
+        }
+
+        // Jalankan kembang api setiap 400ms
+        setInterval(createFirework, 400);
+
+        // Tambahan: Kembang api ekstra saat pertama kali buka
+        for(let i=0; i<5; i++) {
+            setTimeout(createFirework, i * 200);
+        }
+    </script>
+</body>
+</html>

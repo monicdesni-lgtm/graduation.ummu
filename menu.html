@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Gift ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soft-blue: #e3f2fd;
+            --pink-accent: #fce4ec;
+            --deep-blue: #90caf9;
+            --dark-pink: #f06292;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--soft-blue) 0%, var(--pink-accent) 100%);
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+        }
+
+        /* ORNAMEN BUNGA & PITA (Dekorasi) */
+        .decor {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .flower-1 { top: 10%; left: 5%; font-size: 40px; transform: rotate(-15deg); }
+        .flower-2 { bottom: 10%; right: 5%; font-size: 40px; transform: rotate(15deg); }
+        .ribbon-1 { top: 15%; right: 10%; font-size: 35px; transform: rotate(20deg); }
+        .ribbon-2 { bottom: 15%; left: 10%; font-size: 35px; transform: rotate(-20deg); }
+
+        /* LOADING SCREEN */
+        #loading-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--soft-blue), var(--pink-accent));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            transition: opacity 0.8s ease;
+        }
+
+        .loader-container {
+            width: 200px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            position: relative;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .loader-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--dark-pink);
+            border-radius: 10px;
+            position: relative;
+            transition: width 3s linear;
+        }
+
+        .heart-icon {
+            position: absolute;
+            right: -10px;
+            top: -12px;
+            font-size: 22px;
+            filter: drop-shadow(0 0 5px rgba(240, 98, 146, 0.5));
+        }
+
+        /* MAIN MENU CONTENT */
+        #menu-content {
+            display: none;
+            width: 90%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            padding: 50px 20px;
+            border-radius: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            position: relative;
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #5d8aa8; /* Soft Steel Blue */
+            margin-top: 0;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .menu-options {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .menu-btn {
+            width: 140px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            /* Efek Dimensi / 3D */
+            border: none;
+            background: white;
+            box-shadow: 
+                0 10px 0px #e0e0e0, 
+                0 15px 25px rgba(0,0,0,0.1);
+        }
+
+        .menu-btn i {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        .btn-letter { color: #f06292; }
+        .btn-memories { color: #64b5f6; }
+
+        .btn-text {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Hover Effect (Tombol Tertekan) */
+        .menu-btn:hover {
+            transform: translateY(5px);
+            box-shadow: 
+                0 5px 0px #e0e0e0, 
+                0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .menu-btn:active {
+            transform: translateY(10px);
+            box-shadow: 0 0px 0px #e0e0e0;
+        }
+
+        .footer-text {
+            margin-top: 45px;
+            font-size: 0.85rem;
+            color: #90a4ae;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ornamen Background -->
+    <div class="decor flower-1">🌸</div>
+    <div class="decor flower-2">🌺</div>
+    <div class="decor ribbon-1">🎀</div>
+    <div class="decor ribbon-2">✨</div>
+
+    <!-- Screen Loading -->
+    <div id="loading-screen">
+        <div class="loader-container">
+            <div class="loader-bar" id="bar">
+                <span class="heart-icon">💝</span>
+            </div>
+        </div>
+        <div style="color: #ad1457; font-weight: 700; font-size: 0.8rem;" id="status-text">Collecting data...</div>
+    </div>
+
+    <!-- Konten Menu -->
+    <div id="menu-content">
+        <h2>Choose Your Gift ✨</h2>
+        
+        <div class="menu-options">
+            <!-- Tombol A Letter -->
+            <a href="letter.html" class="menu-btn btn-letter">
+                <i>✉️</i>
+                <span class="btn-text">A Letter</span>
+            </a>
+            
+            <!-- Tombol A Memories -->
+            <a href="memories.html" class="menu-btn btn-memories">
+                <i>🎞️</i>
+                <span class="btn-text">A Memories</span>
+            </a>
+        </div>
+
+        <p class="footer-text">ESPECIALLY CRAFTED FOR UMMU 🤍</p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const bar = document.getElementById('bar');
+            const statusText = document.getElementById('status-text');
+            const loadingScreen = document.getElementById('loading-screen');
+            const menuContent = document.getElementById('menu-content');
+
+            setTimeout(() => { bar.style.width = '100%'; }, 100);
+            setTimeout(() => { statusText.innerText = "Wrapping your surprises..."; }, 1500);
+
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    menuContent.style.display = 'block';
+                }, 800);
+            }, 3500);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Letter for Ummu 💌</title>
+    
+    <style>
+        mark {
+    background-color: #ffc1e3; /* Warna pink stabilo lembut */
+    color: black;
+    padding: 0 4px;
+    border-radius: 4px;
+}
+        :root {
+            --bg-blue: #e3f2fd;
+            --bg-pink: #fce4ec;
+            --line-color: #d1d9e6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-blue) 0%, var(--bg-pink) 100%);
+            /* Menggunakan Times New Roman untuk seluruh halaman */
+            font-family: "Times New Roman", Times, serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- ORNAMEN YANG LEBIH RAMAI --- */
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 5s infinite ease-in-out;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-30px) rotate(20deg); opacity: 1; }
+        }
+
+        /* --- NOTES / BUKU --- */
+        .notebook {
+            position: relative;
+            width: 85%;
+            max-width: 550px;
+            background: #fff;
+            padding: 60px 40px 40px 60px; /* Padding kiri lebih besar (60px) agar tidak tabrak garis */
+            margin: 50px 0;
+            border-radius: 2px;
+            box-shadow: 5px 15px 30px rgba(0,0,0,0.1);
+            z-index: 10;
+            /* Efek Kertas Bergaris */
+            background-image: linear-gradient(var(--line-color) 1px, transparent 1px);
+            background-size: 100% 30px;
+            line-height: 30px;
+        }
+
+        /* Garis Margin Merah Buku */
+        .notebook::before {
+            content: '';
+            position: absolute;
+            left: 50px; /* Posisi garis merah */
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+
+        .letter-header {
+            font-size: 12pt;
+            color: black;
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .letter-content {
+            font-size: 12pt;
+            color: black;
+            text-align: justify;
+            white-space: pre-wrap;
+        }
+
+        /* Pita di Atas Notes */
+        .ribbon-top {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 45px;
+            z-index: 12;
+        }
+
+        /* Tombol Back */
+        .btn-back {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        /* Audio Player */
+        .music-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255,255,255,0.8);
+            padding: 5px 10px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <a href="menu.html" class="btn-back">⬅️ Back</a>
+
+    <!-- Pita Utama -->
+    <div class="ribbon-top">🎀</div>
+
+    <!-- Notebook Content -->
+    <div class="notebook">
+        <!-- Header sesuai request -->
+        <div class="letter-header">
+           <mark> Dear Ummu, this is a message i want to share with you when we finally graduate.</mark>
+        </div>
+        <div class="letter-content">
+Hello, How are you? I hope you are always healthy and happy yaa.
+First of all, aku mau mengucapkan banyak <mark> terima kasih karena sudah menjadi teman sebangku aku selama kurang lebih 3 tahun ini.</mark> Bukan waktu yang singkat, dan pasti sudah banyak suka dan duka yang kita lewati bersama.
+Aku masih ingat banget momen pertama kita ketemu waktu upacara MPLS. Jujur waktu itu aku pengen banget ngajak kamu ngobrol, but I don't have the guts hehe.
+Terus karena kita barisnya sebelahan, kita jadi jalan bareng ke kelas setelah upacara. Dan di situ akhirnya aku reach out duluan, “Mau bareng ga duduknya?” dan akhirnya kita duduk bareng!!! Kayaknya waktu itu kita duduk di depan deh.
+Dari situ kita mulai ngobrol, yaa hal-hal basic kayak nama, asal sekolah, dan lain-lain. Tapi maaf ya kalau waktu MPLS aku terlalu banyak ngomong hahaha, kayaknya aku emang sok akrab banget dulu. Tapi hal yang paling aku inget itu, waktu pertama ketemu kamu belum ganti HP, dan besoknya langsung ganti—cepet banget yaa.
+Ummu, dari kelas 10 sampai 12, hal yang paling aku syukuri adalah bisa duduk sebangku sama kamu. Kamu selalu mau ngajarin aku matematika, padahal aku sering ga paham, tapi kalau diajarin sama kamu langsung ngerti.
+</mark> Aku juga bersyukur banget kamu selalu nemenin aku setiap hari di sekolah.</mark> Mungkin aku sering tiba-tiba dispen atau ga masuk dan kamu jadi sendirian.. maafin aku yaa
+Aku juga bersyukur banget kamu ada di sisi aku waktu aku lagi ada masalah dengan adik kelas waktu itu. Itu hal yang ga akan pernah aku lupain.
+Aku juga bersyukur kita bisa makan siang bareng, shalat bareng, dan menjalani hari-hari sederhana itu bersama.
+Dan aku juga berterima kasih banget karena kamu sering anter/jemput aku. I'm so
+ sorry kalau aku sering merepotkan kamu, semoga semua kebaikan kamu dibalas dengan hal baik juga ya.
+<mark> Intinya, aku bener-bener bersyukur bisa kenal dan dipertemukan sama orang sebaik kamu.</mark>
+
+Dan… sekarang mungkin situasinya sedikit berbeda.
+Aku izin menyampaikan sesuatu ya…
+Entah cuma perasaanku atau memang sudah bukan masanya, aku ngerasa setelah PKL kita jadi ada jarak. Atau mungkin setelah aku punya masalah dengan salah satu di antara kita.
+Jujur aku ga tahu penyebabnya apa.
+Tapi aku minta maaf yang sebesar-besarnya ya, kalau sikap atau ucapanku membuat kamu menjauh. I’m truly sorry for everything.
+Aku juga minta maaf kalau selama ini, dari kelas 10 sampai 12, aku pernah menyakiti perasaan kamu atau melakukan hal yang kurang pantas.
+Satu hal yang perlu kamu tahu, aku sedih banget dan juga merasa bersalah. Waktu kita mulai jaga jarak, aku sering mikir:
+ “Apa aku jahat ya ke Ummu?”
+ “Apa sebenarnya Ummu ga mau temenan sama aku?”
+ Dan masih banyak lagi.
+Dan yang paling bikin aku sedih adalah waktu ulang tahun kamu kemarin. Aku kaget ternyata kalian merayakan bareng… setelah liat itu aku langsung nangis dan mikir mungkin ini memang salahku.
+Sampai sekarang pun aku masih merasa bersalah. I feel really guilty, bahkan ngerasa jadi orang yang jahat.
+<mark>Sekali lagi, aku minta maaf ya…</mark>
+ Maaf untuk semua ucapan dan tindakan yang menyakiti kamu.
+ Maaf karena belum bisa jadi teman yang baik.
+ Maaf kalau kamu pernah sedih atau nangis karena aku.
+ Maaf karena sering merepotkan kamu.
+ <mark>Maaf untuk semua hal yang pernah terjadi.</mark>
+Terakhir, aku tidak tahu setelah lulus nanti kita akan bertemu lagi atau tidak. Tapi aku akan selalu mendoakan yang terbaik untuk kamu. Semoga semua jalanmu dimudahkan dan kamu sukses di bidang apapun.
+<mark>I hope you are always surrounded by good people and stay happy wherever you are.</mark>
+Kalau setelah membaca ini kamu ingin menyampaikan sesuatu ke aku, aku masih sangat terbuka dan akan menerimanya ya.
+Dan pada akhirnya, meskipun kita berpisah dan menjalani jalan masing-masing, aku berharap kamu tetap menjadi bunga yang bermekaran, meskipun kita sudah tidak berada di kebun yang sama.
+Terima kasih untuk 3 tahunnya.
+Sukses selalu ya di manapun kamu berada.
+See you 🤍
+
+        </div>
+    </div>
+
+    <!-- Player Musik -->
+    <div class="music-container">
+        <span style="font-size: 11px;">🎵 Yang Patah Tumbuh...</span>
+        <audio id="myAudio" loop autoplay>
+    <source src="Yang patah tumbuh.mp3" type="audio/mpeg">
+</audio>
+    </div>
+
+    <script>
+        // Script untuk membuat ornamen acak yang sangat banyak
+        function createDecorations() {
+            const emojis = ['✨', '⭐', '💖', '🌸', '🌺', '🎀', '🌟', '🍀', '💕'];
+            const count = 40; // Jumlah ornamen
+
+            for (let i = 0; i < count; i++) {
+                const el = document.createElement('div');
+                el.className = 'floating-element';
+                el.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // Posisi random
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = Math.random() * 100 + 'vh';
+                
+                // Ukuran random
+                el.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                
+                // Durasi animasi random agar tidak barengan
+                el.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                el.style.animationDelay = (Math.random() * 5) + 's';
+                
+                document.body.appendChild(el);
+            }
+        }
+        createDecorations();
+    </script>
+</body>
+</html>
